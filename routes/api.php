@@ -22,5 +22,6 @@ use App\Http\Controllers\PostController;
 Route::group(["prefix" => "v1"], function(){
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index']);
+        Route::post('/create', [PostController::class, 'create']);
     });
 });

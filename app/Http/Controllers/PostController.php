@@ -28,6 +28,7 @@ class PostController extends Controller
 
     public function create (PostRequest $request)
     {
-        return 1;
+        $data = $this->postRepo->uploadFile($request->file);
+        return $data;
     }
 }

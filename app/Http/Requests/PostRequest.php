@@ -26,7 +26,6 @@ class PostRequest extends BaseRequest
         return [
             //
             'title' => 'required',
-            'test' => 'required'
         ];
     }
 }

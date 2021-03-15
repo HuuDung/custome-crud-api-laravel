@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Repository\PostRepositoryInterface;
 use App\Transformers\PostTransformers;
@@ -23,5 +24,11 @@ class PostController extends Controller
                     ->transformWith(new PostTransformers)
                     ->toArray();
       return responseSuccess($data, Response::HTTP_OK, trans('messages.welcome')) ;
+    }
+
+    public function create (PostRequest $request)
+    {
+        $data = $this->postRepo->uploadFile($request->file);
+        return $data;
     }
 }

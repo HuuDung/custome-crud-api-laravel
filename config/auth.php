@@ -1,7 +1,16 @@
 <?php
 
 return [
-
+    'type' => [
+        'user' => [
+            'key' => 'user',
+            'guard' => 'user_session'
+        ],
+        'admin' => [
+            'key' => 'admin',
+            'guard' => 'admin_session'
+        ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -14,7 +23,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'user_session',
         'passwords' => 'users',
     ],
 
@@ -36,14 +45,24 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'user_session' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
+        'user' => [
+            'driver' => 'passport',
             'provider' => 'users',
+            'hash' => false,
+        ],
+        'admin_session' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'admin' => [
+            'driver' => 'passport',
+            'provider' => 'admins',
             'hash' => false,
         ],
     ],
@@ -68,8 +87,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\User::class,0
         ],
+        'admins'=> [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

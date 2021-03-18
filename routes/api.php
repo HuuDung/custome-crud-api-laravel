@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +25,12 @@ Route::group(["prefix" => "v1"], function(){
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index']);
         Route::post('/create', [PostController::class, 'create']);
+    });
+
+    Route::prefix('users')->group(function(){
+        Route::post('/create', [UserController::class, 'create']);
+    });
+    Route::prefix('auth')->group(function () {
+        Route::post('/login', [AuthController::class, 'login']);
     });
 });

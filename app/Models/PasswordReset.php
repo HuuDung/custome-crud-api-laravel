@@ -6,17 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Comment extends Model
+class PasswordReset extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function post()
-    {
-        return $this->hasMany(Post::class);
-    }
+    protected $fillable = [
+        'email',
+        'token',
+    ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 }

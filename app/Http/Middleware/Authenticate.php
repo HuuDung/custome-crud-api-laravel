@@ -23,19 +23,15 @@ class Authenticate extends Middleware
 
     protected function unauthenticated($request, array $guards)
     {
-        throw new HttpResponseException(response()->json([
-            'message' => trans('messages.response.unauthorized'),
-        ], Response::HTTP_UNAUTHORIZED));
+        throw new HttpResponseException(responseMessageSuccess(trans('messages.auth.unauthorized'), Response::HTTP_UNAUTHORIZED));
     }
 
     protected function authenticate($request, array $guards)
     {
-        dd($guards);
         if (empty($guards)) $guards = [null];
 
         foreach ($guards as $guard) {
             if ($this->auth->guard($guard)->check() && $this->auth->guard($guard)->user()->token()->name == $guard)
-                dd($guard);
                 return $this->auth->shouldUse($guard);
         }
 
